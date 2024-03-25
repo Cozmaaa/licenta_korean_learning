@@ -1,0 +1,82 @@
+/* Register.module.css */
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fullPage {
+  min-height: 100vh; /* Make it at least the full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../public/loginBackground.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.title {
+  text-align: center;
+  font-weight: normal;
+  color: #5c5346;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f2c9b5; /* Soft peach tone for the button */
+  color: white;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #eaa789;
+}
+
+.link {
+  color: #5c5346;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  color: #5c5346;
+  font-size: 14px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px; /* Increased margin for spacing out elements */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; /* Slightly larger font for readability */
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #f2c9b5;
+  box-shadow: 0 0 0 2px rgba(242, 201, 181, 0.5);
+}
