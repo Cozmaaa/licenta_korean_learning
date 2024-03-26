@@ -81,8 +81,32 @@ const MainMenu = () => {
     updateHangeulKnowledge(username);
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/session/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to logout");
+      }
+
+      localStorage.removeItem("session_token");
+
+      router.push("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className={styles.mainMenuWrapper}>
+      <div className={styles.logoutButtonContainer}>
+        <button className={styles.logoutButton} onClick={handleLogout}>
+          Log out
+        </button>
+      </div>
       <Modal
         isOpen={isModalOpen}
         onClose={handleModalClose}
