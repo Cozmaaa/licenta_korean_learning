@@ -3,11 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./Register.module.css";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ export default function Register() {
           data.message || "An error occurred during registration"
         );
       }
+      router.push("/login");
     } catch (e) {
       console.log(e);
     }
