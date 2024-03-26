@@ -34,3 +34,28 @@ exports.logout = async (req, res) => {
 };
 
 
+// Function to check if the cookie exists in the database
+exports.checkSession = async (req, res) => {
+    try {
+        // Assuming the session token is sent in a cookie named 'session_token'
+        const sessionToken = req.cookies.session_token;
+
+        if (!sessionToken) {
+            return res.status(400).send('No session token provided');
+        }
+
+        // Find the session in the database
+        const session = await Session.findOne({ sessionToken });
+
+        if (!session) {
+            // No session was found with the provided token
+            return res.status(404).send('Session not found');
+        }
+
+        res.status(200).send('Session exists');
+    } catch (error) {
+        console.error('Check session error:', error);
+        res.status(500).send('Error checking session');
+    }
+};
+

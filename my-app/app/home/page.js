@@ -13,6 +13,28 @@ const MainMenu = () => {
   const router = useRouter();
 
   useEffect(() => {
+    async function checkCredentials() {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/session/checkSession",
+          {
+            method: "POST",
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to verify session");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+        router.push("/login");
+      }
+    }
+    checkCredentials();
+  }, []);
+
+  useEffect(() => {
     async function fetchUsername() {
       try {
         const res = await fetch("http://localhost:5000/user/me", {
