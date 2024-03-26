@@ -16,7 +16,7 @@ exports.registerUser = async (req, res) => {
     });
 
     await newUser.save(); // Save the new user to the database
-    res.status(201).json({message:"User created successfully"});
+    res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error creating the user");
@@ -64,5 +64,49 @@ exports.loginUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error logging in the user");
+  }
+};
+
+exports.getUserInfo = async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    // Find the user by username
+    const user = await User.findOne(
+      { username },
+      "username userType knowsHangeul -_id"
+    );
+    // The second argument to findOne is a projection. This specifies which fields to include or exclude in the returned document.
+    // In this case, we're including the username and userType fields, and excluding the _id field.
+    // The password and email fields are not included in the projection, so they will not be returned.
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    console.log(user);
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error getting user information");
+  }
+};
+
+exports.setKnowsHangeul = async (req, res) => {
+  try {
+    const { username, knowsHangeul } = req.body;
+
+    // Find the user by username
+    const user = await User.findOneAndUpdate(
+      { username },
+      { knowsHangeul },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error(error);
   }
 };

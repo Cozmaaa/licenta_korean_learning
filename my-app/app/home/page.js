@@ -1,40 +1,95 @@
 // components/MainMenu.js
-'use client';
+"use client";
 
 import styles from "./Home.module.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import Modal from "@/components/Modal";
+import { useRouter } from "next/navigation";
+import updateHangeulKnowledge from "./updateHangeulKnowledge";
 
 const MainMenu = () => {
-    const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
-    useEffect(() => {
-        // Define the function to fetch the user's name
-        async function fetchUsername() {
-          try {
-            // Replace `backend-url` with the actual URL of your Express server
-            const res = await fetch('http://localhost:5000/user/me', {
-              credentials: 'include', // Needed to include the cookie
-            });
-    
-            if (!res.ok) {
-              throw new Error('Failed to fetch user data');
-            }
-    
-            const data = await res.json();
-            setUsername(data.username);
-          } catch (error) {
-            console.error("An error occurred while fetching the user's name:", error);
-            setUsername('user');
-          }
+  useEffect(() => {
+    async function fetchUsername() {
+      try {
+        const res = await fetch("http://localhost:5000/user/me", {
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch user data");
         }
-            // Call the function
+
+        const data = await res.json();
+        setUsername(data.username);
+      } catch (error) {
+        console.error(
+          "An error occurred while fetching the user's name:",
+          error
+        );
+        setUsername("user");
+      }
+    }
+
     fetchUsername();
-}, []);
+  }, []);
+
+  useEffect(() => {
+    // Ensure username is not empty before fetching additional information
+    if (username) {
+      async function fetchInformation() {
+        try {
+          const res = await fetch("http://localhost:5000/user/findInfo", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username }),
+            credentials: "include",
+          });
+
+          if (!res.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          const data = await res.json();
+
+          if (data.knowsHangeul === false) {
+            setIsModalOpen(true);
+          }
+
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      fetchInformation();
+    }
+  }, [username]); // Dependency array includes username
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    updateHangeulKnowledge(username);
+    router.push("/hangeul");
+  };
+
+  const handleModalConfirm = async () => {
+    setIsModalOpen(false);
+    updateHangeulKnowledge(username);
+  };
 
   return (
     <div className={styles.mainMenuWrapper}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleModalConfirm}
+      />
       <div className={styles.greeting}>
-        <h1 className={styles.heading}>Hello {username || ''}!</h1>
+        <h1 className={styles.heading}>Hello {username || ""}!</h1>
       </div>
       <div className={styles.menuContainer}>
         <div className={styles.menuItem}>

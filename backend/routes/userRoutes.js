@@ -9,5 +9,7 @@ router.post('/login',userController.loginUser)
 router.get('/me',authenticate,(req,res)=>{
     res.status(200).json({username:req.user.username})
 })
+router.post('/findInfo',userController.getUserInfo)
+router.post('/setKnowsHangeul',userController.setKnowsHangeul)
 
 module.exports = router;

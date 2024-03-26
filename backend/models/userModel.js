@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
     enum: ['normal', 'admin'], // Restrict userType to only 'normal' or 'admin'
     default: 'normal' // Set default userType to 'normal'
   },
+  knowsHangeul: {
+    type: Boolean,
+    required: false,
+    default: false, // This sets the default value to false if not specified
+  },
   createdAt: {
     type: Date,
     default: Date.now

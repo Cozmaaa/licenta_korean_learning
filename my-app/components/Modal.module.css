@@ -1,0 +1,61 @@
+/* components/Modal.module.css */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    max-width: 80%;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .closeButton {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
+  .modalContent {
+    margin: 20px 0;
+  }
+  
+  .modalActions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .confirmButton, .cancelButton {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .confirmButton {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .cancelButton {
+    background-color: #f44336;
+    color: white;
+  }
+  

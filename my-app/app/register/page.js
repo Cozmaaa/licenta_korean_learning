@@ -24,6 +24,7 @@ export default function Register() {
           username: username,
           email: email,
           password: password,
+          knowsHangeul:false
         }),
       });
       const data = await response.json();
