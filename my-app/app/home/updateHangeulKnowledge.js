@@ -1,8 +1,3 @@
-import styles from "./Home.module.css";
-import { useEffect, useState } from "react";
-import Modal from "@/components/Modal";
-import { useRouter } from "next/navigation";
-
 async function updateHangeulKnowledge(username) {
   try {
     // Replace `your-api-endpoint` with the actual endpoint you want to call
