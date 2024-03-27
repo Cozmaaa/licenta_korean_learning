@@ -1,3 +1,6 @@
+//TODO : Make it need cookies 
+
+
 'use client';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
@@ -45,9 +48,6 @@ export default function HangeulLetterPage({ params }) {
     }
   };
 
-  if (!hangeulLetter) {
-    return <div>Loading...</div>; // Or a loading spinner, etc.
-  }
 
   return (
     <div className={styles.container}>
