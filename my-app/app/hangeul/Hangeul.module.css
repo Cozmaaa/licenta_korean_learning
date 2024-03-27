@@ -1,0 +1,56 @@
+/* styles/Hangeul.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainDiv {
+  text-align: center;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px; /* Optional, for styled corners */
+}
+
+.description {
+  margin-top: 20px;
+}
+/* Hangeul.module.css */
+
+.nextButton {
+  padding: 10px 20px;
+  background-color: #4caf50; /* A nice shade of green */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nextButton:hover,
+.nextButton:focus {
+  background-color: #43a047; /* A slightly darker shade for the hover/focus state */
+  transform: translateY(-2px); /* A subtle lift effect */
+  outline: none; /* Removes the outline to keep the design clean */
+}
+
+.nextButton:active {
+  background-color: #388e3c; /* Even darker for the active state */
+  transform: translateY(1px); /* 'Pressing down' effect */
+}

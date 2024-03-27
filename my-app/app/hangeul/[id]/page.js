@@ -1,0 +1,72 @@
+'use client';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/navigation';
+import styles from '../Hangeul.module.css'; // Make sure the path to your CSS module is correct
+
+export default function HangeulLetterPage({ params }) {
+  const [hangeulLetter, setHangeulLetter] = useState(null);
+  const id = params.id; // 'id' is now directly available as a prop
+  const router = useRouter();
+
+  useEffect(() => {
+    if (id) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/hangeul/${id}`);
+          if (!response.ok) {
+            throw new Error(`Data fetching failed with status ${response.status}`);
+          }
+          const data = await response.json();
+          setHangeulLetter(data);
+        } catch (error) {
+          console.error("Fetching error:", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [id]); // Run the effect when the 'id' changes
+
+  const goToNextLetter = async () => {
+    try {
+      // Fetch the next letter's ID from your backend
+      const response = await fetch(`http://localhost:5000/hangeul/${id}/next`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch the next letter: ${response.statusText}`);
+      }
+      const { nextId } = await response.json();
+
+      // Navigate to the next letter's page
+      router.push(`/hangeul/${nextId}`);
+    } catch (error) {
+      console.error("Error fetching next letter:", error);
+      // Handle error (e.g., show an error message)
+    }
+  };
+
+  if (!hangeulLetter) {
+    return <div>Loading...</div>; // Or a loading spinner, etc.
+  }
+
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Hangeul Letter: {hangeulLetter?.letter}</title>
+        <meta name="description" content={`Learn about the Hangeul letter ${hangeulLetter?.letter}`} />
+      </Head>
+      <main className={styles.main}>
+        <h1 className={styles.title}>{hangeulLetter?.letter}</h1>
+        <p className={styles.description}>{hangeulLetter?.meaning}</p>
+        <button onClick={goToNextLetter} className={styles.nextButton}>Next Letter</button>
+      </main>
+    </div>
+  );
+}
+
+// This is where Next.js passes the dynamic route parameter `id` to your page
+export async function getServerComponent({ params }) {
+  return {
+    props: { params },
+  };
+}
