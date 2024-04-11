@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: false, // This sets the default value to false if not specified
   },
+  lastHangeulLetter:{
+    type:String,
+    required:false,
+    default:""
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -44,7 +49,7 @@ const userSchema = new mongoose.Schema({
 });
 
 
-//TODO : readStories , savedWords, HashCookie 
+//TODO : readStories , savedWords
 
 const User = mongoose.model('User', userSchema);
 

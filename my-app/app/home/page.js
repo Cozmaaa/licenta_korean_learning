@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { useRouter } from "next/navigation";
 import updateHangeulKnowledge from "./updateHangeulKnowledge";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 const MainMenu = () => {
   const [username, setUsername] = useState("");
@@ -122,6 +123,33 @@ const MainMenu = () => {
     }
   };
 
+  const redirectToLastKoreanLetter = async () => {
+    try {
+      const userId = await getUserByCookie();
+      const response = await fetch(
+        "http://localhost:5000/user/getLastHangeulLetter",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: userId }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const { lastHangeulLetter } = await response.json();
+
+      // Redirect to the page for the last Hangeul letter
+      router.push(`/hangeul/${lastHangeulLetter}`);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className={styles.mainMenuWrapper}>
       <div className={styles.logoutButtonContainer}>
@@ -139,20 +167,44 @@ const MainMenu = () => {
       </div>
       <div className={styles.menuContainer}>
         <div className={styles.menuItem}>
-          <h2 className={styles.heading}>Stories</h2>
-          {/* Additional content goes here */}
+          <h2 className={styles.heading}>
+            Stories
+            <button className={styles.button}>Browse Stories</button>
+          </h2>
         </div>
         <div className={styles.menuItem}>
-          <h2 className={styles.heading}>Hangeul</h2>
-          {/* Additional content goes here */}
+          <h2 className={styles.heading}>
+            Hangeul
+            <button
+              className={styles.button}
+              onClick={() => router.push("/hangeul")}
+            >
+              Learn Hangeul
+            </button>
+            <button
+              className={styles.button}
+              onClick={redirectToLastKoreanLetter}
+            >
+              Continue from where you left
+            </button>
+          </h2>
         </div>
         <div className={styles.menuItem}>
-          <h2 className={styles.heading}>Flashcards</h2>
-          {/* Additional content goes here */}
+          <h2 className={styles.heading}>
+            Flashcards
+            <button className={styles.button}>Review Words</button>
+          </h2>
         </div>
         <div className={styles.menuItem}>
-          <h2 className={styles.heading}>Chatting</h2>
-          {/* Additional content goes here */}
+          <h2 className={styles.heading}>
+            Chatting
+            <button
+              className={styles.button}
+              onClick={() => router.push("/chat")}
+            >
+              Train Writing
+            </button>
+          </h2>
         </div>
       </div>
     </div>

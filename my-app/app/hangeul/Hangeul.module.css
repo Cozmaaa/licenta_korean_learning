@@ -21,19 +21,24 @@
 }
 
 .image {
-  max-width: 100%;
+  max-width: 25%;
   height: auto;
   border-radius: 8px; /* Optional, for styled corners */
 }
 
 .description {
-  margin-top: 20px;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/* Hangeul.module.css */
 
 .nextButton {
   padding: 10px 20px;
-  background-color: #4caf50; /* A nice shade of green */
+  margin:20px auto;
+  background-color: #4caf50; 
   color: white;
   font-size: 16px;
   border: none;

@@ -1,11 +1,11 @@
-//TODO : Make it need cookies 
+//TODO : Make it need cookies
 
-
-'use client';
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/navigation';
-import styles from '../Hangeul.module.css'; // Make sure the path to your CSS module is correct
+"use client";
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/navigation";
+import styles from "../Hangeul.module.css";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 export default function HangeulLetterPage({ params }) {
   const [hangeulLetter, setHangeulLetter] = useState(null);
@@ -18,7 +18,9 @@ export default function HangeulLetterPage({ params }) {
         try {
           const response = await fetch(`http://localhost:5000/hangeul/${id}`);
           if (!response.ok) {
-            throw new Error(`Data fetching failed with status ${response.status}`);
+            throw new Error(
+              `Data fetching failed with status ${response.status}`
+            );
           }
           const data = await response.json();
           setHangeulLetter(data);
@@ -36,10 +38,13 @@ export default function HangeulLetterPage({ params }) {
       // Fetch the next letter's ID from your backend
       const response = await fetch(`http://localhost:5000/hangeul/${id}/next`);
       if (!response.ok) {
-        throw new Error(`Failed to fetch the next letter: ${response.statusText}`);
+        throw new Error(
+          `Failed to fetch the next letter: ${response.statusText}`
+        );
       }
       const { nextId } = await response.json();
 
+      updateLastHangeulLetter();
       // Navigate to the next letter's page
       router.push(`/hangeul/${nextId}`);
     } catch (error) {
@@ -48,17 +53,48 @@ export default function HangeulLetterPage({ params }) {
     }
   };
 
+  const updateLastHangeulLetter = async () => {
+    try {
+      const userId = await getUserByCookie();
+      const response = await fetch(
+        "http://localhost:5000/user/setLastHangeulLetter",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: userId,
+            lastLetter: id,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to update last Hangeul letter: ${response.statusText}`
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Hangeul Letter: {hangeulLetter?.letter}</title>
-        <meta name="description" content={`Learn about the Hangeul letter ${hangeulLetter?.letter}`} />
+        <meta
+          name="description"
+          content={`Learn about the Hangeul letter ${hangeulLetter?.letter}`}
+        />
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>{hangeulLetter?.letter}</h1>
         <p className={styles.description}>{hangeulLetter?.meaning}</p>
-        <button onClick={goToNextLetter} className={styles.nextButton}>Next Letter</button>
+        <button onClick={goToNextLetter} className={styles.nextButton}>
+          Next Letter
+        </button>
       </main>
     </div>
   );

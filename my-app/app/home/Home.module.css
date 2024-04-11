@@ -6,6 +6,7 @@
   justify-content: center;
   height: 100vh; /* Use the full height of the viewport */
   padding: 20px;
+  background-color: rgb(173, 173, 173);
 }
 
 .greeting {
@@ -21,13 +22,15 @@
 .menuItem {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 350px; /* Larger width for bigger squares */
   height: 350px; /* Larger height for bigger squares */
   background-color: #dddddd; /* White background */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Simple box shadow for styling */
   border-radius: 20px;
+  position: relative;
+  text-align: center;
 }
 
 .heading {
@@ -51,6 +54,24 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
 }
 
 .logoutButton:hover {

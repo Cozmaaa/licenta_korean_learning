@@ -110,3 +110,48 @@ exports.setKnowsHangeul = async (req, res) => {
     console.error(error);
   }
 };
+
+exports.setLastHangeulLetter = async (req, res) => {
+  const { userId, lastLetter } = req.body;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update the lastHangeulLetter field
+    user.lastHangeulLetter = lastLetter;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Last Hangeul letter updated successfully" });
+  } catch (error) {
+    console.error("Error setting last Hangeul letter:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getLastHangeulLetter = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Get the lastHangeulLetter field from the user document
+    const lastHangeulLetter = user.lastHangeulLetter;
+
+    return res.status(200).json({ lastHangeulLetter });
+  } catch (error) {
+    console.error("Error getting last Hangeul letter:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
