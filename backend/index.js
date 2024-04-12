@@ -6,6 +6,8 @@ const responseRoutes = require("./routes/responseRoutes");
 const userRoutes = require("./routes/userRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const hangeulRouter = require("./routes/hangeulRoutes");
+const wordRouter = require("./routes/wordRoutes");
+const storyRouter = require("./routes/storyRoutes");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
@@ -23,7 +25,9 @@ app.use(cookieParser());
 app.use("/api", responseRoutes);
 app.use("/user", userRoutes);
 app.use("/session", sessionRoutes);
-app.use("/hangeul",hangeulRouter)
+app.use("/hangeul", hangeulRouter);
+app.use("/word", wordRouter);
+app.use("/story", storyRouter);
 
 connectDB();
 mongoose.connection.once("open", () => {

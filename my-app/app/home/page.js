@@ -185,7 +185,7 @@ const MainMenu = () => {
               className={styles.button}
               onClick={redirectToLastKoreanLetter}
             >
-              Continue from where you left
+              Continue from where you left off
             </button>
           </h2>
         </div>
