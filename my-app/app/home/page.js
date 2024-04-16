@@ -169,7 +169,7 @@ const MainMenu = () => {
         <div className={styles.menuItem}>
           <h2 className={styles.heading}>
             Stories
-            <button className={styles.button}>Browse Stories</button>
+            <button className={styles.button} onClick={()=> router.push("/stories")}>Browse Stories</button>
           </h2>
         </div>
         <div className={styles.menuItem}>

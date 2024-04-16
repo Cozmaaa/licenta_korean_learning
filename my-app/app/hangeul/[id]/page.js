@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useRouter } from "next/navigation";
 import styles from "../Hangeul.module.css";
 import { getUserByCookie } from "@/utils/getUserByCookie";
+import next from "next";
 
 export default function HangeulLetterPage({ params }) {
   const [hangeulLetter, setHangeulLetter] = useState(null);
@@ -44,7 +45,7 @@ export default function HangeulLetterPage({ params }) {
       }
       const { nextId } = await response.json();
 
-      updateLastHangeulLetter();
+      updateLastHangeulLetter(nextId);
       // Navigate to the next letter's page
       router.push(`/hangeul/${nextId}`);
     } catch (error) {
@@ -53,7 +54,7 @@ export default function HangeulLetterPage({ params }) {
     }
   };
 
-  const updateLastHangeulLetter = async () => {
+  const updateLastHangeulLetter = async (nextId) => {
     try {
       const userId = await getUserByCookie();
       const response = await fetch(
@@ -65,7 +66,7 @@ export default function HangeulLetterPage({ params }) {
           },
           body: JSON.stringify({
             userId: userId,
-            lastLetter: id,
+            lastLetter: nextId,
           }),
         }
       );

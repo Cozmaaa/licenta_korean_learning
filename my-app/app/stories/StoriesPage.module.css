@@ -1,0 +1,77 @@
+.container {
+  background: linear-gradient(135deg, #f0f8ff, #e6f1ff);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  position: relative;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.storyGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.storyBox {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.storyBox:hover {
+  transform: translateY(-5px);
+}
+
+.storyTitle {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.storyLevel {
+  font-size: 14px;
+  color: #666;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filterSelector {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.labelText {
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin-right: 15px;
+}
+
+.homeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.homeButton:hover {
+  background-color: #0056b3;
+}

@@ -35,7 +35,9 @@ export default function StoryPage({ params }) {
   }, [id]);
 
   const handleWordClick = (word) => {
-    const clickedWord = story.highlightedWords.find((highlightedWord) => highlightedWord.word === word);
+    const clickedWord = story.highlightedWords.find(
+      (highlightedWord) => highlightedWord.word === word
+    );
     if (clickedWord) {
       setClickedWord(clickedWord);
       setShowPopup(true);
@@ -48,10 +50,11 @@ export default function StoryPage({ params }) {
 
   const renderHighlightedContent = () => {
     if (!story) return null;
-  
+
     const highlightedWords = story.highlightedWords.map((word) => word.word);
-    const parts = story.content.split(/(\s+)/);
-  
+    const parts = story.content.split(/([^\s!.,]+)/);
+    console.log(parts);
+
     return parts.map((part, index) => {
       const trimmedPart = part.trim();
       if (highlightedWords.includes(trimmedPart)) {
@@ -86,6 +89,9 @@ export default function StoryPage({ params }) {
           onClose={handleClosePopup}
         />
       )}
+      <button className={styles.redirectButton} onClick={() => router.back()}>
+        Back to Stories
+      </button>
     </div>
   );
 }
