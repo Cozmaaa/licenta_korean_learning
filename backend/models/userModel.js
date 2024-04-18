@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -6,7 +7,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     trim: true,
-    minlength: 3
+    minlength: 3,
   },
   email: {
     type: String,
@@ -15,42 +16,42 @@ const userSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
       },
-      message: props => `${props.value} is not a valid email address!`
-    }
+      message: (props) => `${props.value} is not a valid email address!`,
+    },
   },
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 6,
   },
   userType: {
     type: String,
     required: false,
-    enum: ['normal', 'admin'], // Restrict userType to only 'normal' or 'admin'
-    default: 'normal' // Set default userType to 'normal'
+    enum: ["normal", "admin"], // Restrict userType to only 'normal' or 'admin'
+    default: "normal", // Set default userType to 'normal'
   },
   knowsHangeul: {
     type: Boolean,
     required: false,
     default: false, // This sets the default value to false if not specified
   },
-  lastHangeulLetter:{
-    type:String,
-    required:false,
-    default:""
+  lastHangeulLetter: {
+    type: String,
+    required: false,
+    default: "",
   },
+  savedWords: [{ type: Schema.Types.ObjectId, ref: "Word" }],
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
+//TODO : readStories 
 
-//TODO : readStories , savedWords
-
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

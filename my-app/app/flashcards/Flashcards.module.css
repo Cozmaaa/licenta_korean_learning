@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .questionBox {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  .word {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #4b0082;
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .optionButton {
+    background-color: #6495ed;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    transition: background-color 0.3s;
+  }
+  
+  .optionButton:hover {
+    background-color: #4169e1;
+  }
+  
+  .selectedOption {
+    background-color: #4169e1;
+  }
+  
+  .resultBox {
+    margin-top: 1.5rem;
+  }
+  
+  .checkButton {
+    background-color: #228b22;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .checkButton:hover {
+    background-color: #006400;
+  }
+  
+  .result {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    color: #333;
+  }
+  
+  .nextButton {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s;
+  }
+  
+  .nextButton:hover {
+    background-color: #ff4500;
+  }
+
+  .homeButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .homeButton:hover {
+    background-color: #333;
+    color: #fff;
+  }

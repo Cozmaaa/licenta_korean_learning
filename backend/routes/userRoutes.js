@@ -13,5 +13,9 @@ router.post("/findInfo", userController.getUserInfo);
 router.post("/setKnowsHangeul", userController.setKnowsHangeul);
 router.post("/setLastHangeulLetter", userController.setLastHangeulLetter);
 router.post('/getLastHangeulLetter', userController.getLastHangeulLetter);
+router.post('/addSavedWord',userController.addWordToSavedWords);
+
+
+router.get('/:userId/savedWords',userController.getSavedWords)
 
 module.exports = router;

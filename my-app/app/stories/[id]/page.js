@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./StoryPage.module.css";
 import BoldedWordModal from "./BoldedWordModal";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 export default function StoryPage({ params }) {
   const [story, setStoryLetter] = useState(null);
@@ -72,6 +73,30 @@ export default function StoryPage({ params }) {
     });
   };
 
+  const saveWordToUser = async () => {
+    try {
+      const userId = await getUserByCookie();
+      const wordId = clickedWord._id;
+  
+      const response = await fetch("http://localhost:5000/user/addSavedWord", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, wordId }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Saving word failed with status ${response.status}`);
+      }
+  
+      // Handle the success response, e.g., show a success message or update the UI
+      console.log("Word saved successfully");
+    } catch (error) {
+      console.error("Error saving word:", error);
+      // Handle the error, e.g., show an error message to the user
+    }
+  };
   if (!story) {
     return <div></div>;
   }
@@ -87,6 +112,7 @@ export default function StoryPage({ params }) {
           word={clickedWord.word}
           translation={clickedWord.translation}
           onClose={handleClosePopup}
+          onSaveWord={saveWordToUser}
         />
       )}
       <button className={styles.redirectButton} onClick={() => router.back()}>

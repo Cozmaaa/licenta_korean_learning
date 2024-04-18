@@ -192,7 +192,7 @@ const MainMenu = () => {
         <div className={styles.menuItem}>
           <h2 className={styles.heading}>
             Flashcards
-            <button className={styles.button}>Review Words</button>
+            <button className={styles.button} onClick={()=> router.push("/flashcards")}>Review Words</button>
           </h2>
         </div>
         <div className={styles.menuItem}>
