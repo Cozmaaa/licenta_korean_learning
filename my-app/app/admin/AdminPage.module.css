@@ -1,0 +1,66 @@
+.adminPageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Use the full height of the viewport */
+    padding: 20px;
+    background-color: #f0f8ff;
+  }
+  
+  .sectionContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 10px;
+  }
+  
+  .sectionHeading {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .formGroupContainer {
+    margin-bottom: 10px;
+  }
+  
+  .labelElement {
+    display: block;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .inputElement,
+  .textAreaElement {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .textAreaElement {
+    height: 150px;
+  }
+  
+  .buttonElement {
+    background-color: #6495ed;
+    margin-top: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .buttonElement:hover {
+    background-color: #4169e1;
+  }

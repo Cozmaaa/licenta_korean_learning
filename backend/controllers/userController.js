@@ -205,3 +205,22 @@ exports.getSavedWords = async (req, res) => {
       .json({ error: "An error occurred while retrieving saved words" });
   }
 };
+
+exports.checkUserType = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    console.log(userId);
+
+    const isAdmin = user.userType === "admin";
+
+    res.json({ userType: user.userType, isAdmin });
+  } catch (error) {
+    console.error("Error checking user type:", error);
+    res.status(500).json({ error: "An error occurred while checking user type" });
+  }
+};

@@ -4,10 +4,13 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./StoriesPage.module.css";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 export default function StoriesPage() {
   const [stories, setStories] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState("all");
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +30,27 @@ export default function StoriesPage() {
       }
     };
 
+    const checkUserType = async () => {
+      try {
+        const userId  = await getUserByCookie();
+        console.log("User ID:", userId);
+
+        const response = await axios.post(
+          "http://localhost:5000/user/isAdmin",
+          {
+            userId: userId,
+          }
+        );
+
+        const { isAdmin } = response.data;
+        setIsAdmin(isAdmin);
+      } catch (error) {
+        console.error("Error checking user type:", error);
+      }
+    };
+
     fetchData();
+    checkUserType();
   }, []);
 
   const handleLevelChange = (event) => {
@@ -44,6 +67,7 @@ export default function StoriesPage() {
   const handleHomeClick = () => {
     router.push("/home");
   };
+
 
   return (
     <div className={styles.container}>
@@ -65,6 +89,12 @@ export default function StoriesPage() {
           ))}
         </select>
       </div>
+
+      {isAdmin && (
+        <Link href="/admin">
+          <button className={styles.addStoriesButton}>Add Stories</button>
+        </Link>
+      )}
 
       <div className={styles.storyGrid}>
         {filteredStories.map((story) => (

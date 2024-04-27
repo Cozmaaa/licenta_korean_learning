@@ -6,7 +6,7 @@
   justify-content: center;
   height: 100vh; /* Use the full height of the viewport */
   padding: 20px;
-  background-color: rgb(173, 173, 173);
+  background-color: #f0f8ff;
 }
 
 .greeting {
