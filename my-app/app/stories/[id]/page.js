@@ -53,7 +53,7 @@ export default function StoryPage({ params }) {
     if (!story) return null;
 
     const highlightedWords = story.highlightedWords.map((word) => word.word);
-    const parts = story.content.split(/([^\s!.,]+)/);
+    const parts = story.content.split(/([^\s!.,?]+)/);
     console.log(parts);
 
     return parts.map((part, index) => {
@@ -77,7 +77,7 @@ export default function StoryPage({ params }) {
     try {
       const userId = await getUserByCookie();
       const wordId = clickedWord._id;
-  
+
       const response = await fetch("http://localhost:5000/user/addSavedWord", {
         method: "POST",
         headers: {
@@ -85,11 +85,11 @@ export default function StoryPage({ params }) {
         },
         body: JSON.stringify({ userId, wordId }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`Saving word failed with status ${response.status}`);
       }
-  
+
       // Handle the success response, e.g., show a success message or update the UI
       console.log("Word saved successfully");
     } catch (error) {
@@ -107,6 +107,14 @@ export default function StoryPage({ params }) {
       <div className={styles.storyBox}>
         <p>{renderHighlightedContent()}</p>
       </div>
+      {story.audioUrl && (
+        <div className={styles.audioPlayer}>
+          <audio controls>
+            <source src={"http://localhost:5000/"+story.audioUrl} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      )}
       {showPopup && clickedWord && (
         <BoldedWordModal
           word={clickedWord.word}

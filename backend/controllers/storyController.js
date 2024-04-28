@@ -1,5 +1,10 @@
 const Word = require("../models/wordModel");
 const Story = require("../models/storyModel");
+const OpenAI = require("openai");
+const fs = require("fs");
+const path = require("path");
+
+
 
 exports.addStory = async (req, res) => {
   try {
@@ -19,6 +24,7 @@ exports.addStory = async (req, res) => {
       if (foundWord) {
         return foundWord._id;
       } else {
+        console.log(word);
         const newWord = new Word({ word });
         const savedWord = await newWord.save();
         return savedWord._id;
@@ -41,6 +47,23 @@ exports.addStory = async (req, res) => {
 
     // Populate the highlighted words in the saved story
     await savedStory.populate("highlightedWords");
+
+    const openai = new OpenAI();
+
+    // Generate the audio file using OpenAI API
+    const mp3 = await openai.audio.speech.create({
+      model: "tts-1",
+      voice: "nova",
+      input: savedStory.content,
+    });
+
+    const speechFile = path.resolve(`./public/speech_${savedStory._id}.mp3`);
+    const buffer = Buffer.from(await mp3.arrayBuffer());
+    await fs.promises.writeFile(speechFile, buffer);
+
+    // Update the saved story with the audio URL
+    savedStory.audioUrl = `/speech_${savedStory._id}.mp3`;
+    await savedStory.save();
 
     // Send a success response to the client
     res.status(201).json(savedStory);
@@ -70,17 +93,16 @@ exports.getStoryById = async (req, res) => {
   }
 };
 
+exports.getAllStories = async (req, res) => {
+  try {
+    const stories = await Story.find({}).populate("highlightedWords");
 
-exports.getAllStories = async (req,res) =>{
-    try{
-        const stories = await Story.find({}).populate("highlightedWords");
-
-        if(!stories){
-            return res.status(404).json({error:"Stories not found!"});
-        }
-        res.json(stories);
-    }catch(erorr){
-        console.log(error);
-        res.status(500).json({error:"An error on the server has occured"});
+    if (!stories) {
+      return res.status(404).json({ error: "Stories not found!" });
     }
-}
+    res.json(stories);
+  } catch (erorr) {
+    console.log(error);
+    res.status(500).json({ error: "An error on the server has occured" });
+  }
+};

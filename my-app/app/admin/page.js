@@ -68,6 +68,7 @@ const AdminPage = () => {
 
   const handleAddStory = async () => {
     try {
+      console.log(highlightedWords);
       const response = await axios.post("http://localhost:5000/story/", {
         title,
         level,
