@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styles from "./Flashcards.module.css";
 import { getUserByCookie } from "@/utils/getUserByCookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import axios from "axios";
 
 export default function SavedWordsQuiz() {
   const [savedWords, setSavedWords] = useState([]);
@@ -11,8 +13,9 @@ export default function SavedWordsQuiz() {
   const [result, setResult] = useState(null);
   const [randomMeanings, setRandomMeanings] = useState([]);
   const [options, setOptions] = useState([]);
+  const [hasGuessed, setHasGuessed] = useState(false);
+  const [isAdmin,setIsAdmin] = useState(false);
   const router = useRouter();
-  
 
   useEffect(() => {
     const fetchSavedWords = async () => {
@@ -34,7 +37,27 @@ export default function SavedWordsQuiz() {
       }
     };
 
+    const checkUserType = async () => {
+      try {
+        const userId  = await getUserByCookie();
+        console.log("User ID:", userId);
+
+        const response = await axios.post(
+          "http://localhost:5000/user/isAdmin",
+          {
+            userId: userId,
+          }
+        );
+
+        const { isAdmin } = response.data;
+        setIsAdmin(isAdmin);
+      } catch (error) {
+        console.error("Error checking user type:", error);
+      }
+    };
+
     fetchSavedWords();
+    checkUserType();
   }, []);
 
   useEffect(() => {
@@ -97,12 +120,29 @@ export default function SavedWordsQuiz() {
     return shuffledMeanings.slice(0, count);
   };
 
-  const handleCheckAnswer = () => {
+  const handleCheckAnswer = async () => {
     const currentWord = savedWords[currentWordIndex];
-    if (selectedOption === currentWord.translation) {
-      setResult("Correct!");
-    } else {
-      setResult("Wrong!");
+    const isCorrect = selectedOption === currentWord.translation;
+    setHasGuessed(true);
+    try {
+      await fetch("http://localhost:5000/word/updateGuesses", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          wordId: currentWord._id,
+          isCorrect,
+        }),
+      });
+
+      if (isCorrect) {
+        setResult("Correct!");
+      } else {
+        setResult("Wrong!");
+      }
+    } catch (error) {
+      console.error("Error updating word guesses:", error);
     }
   };
 
@@ -110,6 +150,7 @@ export default function SavedWordsQuiz() {
     setCurrentWordIndex((prevIndex) => prevIndex + 1);
     setSelectedOption(null);
     setResult(null);
+    setHasGuessed(false);
   };
 
   if (savedWords.length === 0) {
@@ -119,9 +160,15 @@ export default function SavedWordsQuiz() {
   const currentWord = savedWords[currentWordIndex];
   return (
     <div className={styles.container}>
-      <button className={styles.homeButton} onClick={() => router.push("/home")}>
+      <button
+        className={styles.homeButton}
+        onClick={() => router.push("/home")}
+      >
         Back to Home
       </button>
+      {isAdmin && (<Link href="/graphs">
+        <button className={styles.isAdminButton}>Check graphs</button>
+      </Link>)}
       <h1 className={styles.title}>Saved Words Quiz</h1>
       <div className={styles.questionBox}>
         <h2 className={styles.word}>{currentWord.word}</h2>
@@ -140,10 +187,16 @@ export default function SavedWordsQuiz() {
         </div>
         {selectedOption && (
           <div className={styles.resultBox}>
-            <button className={styles.checkButton} onClick={handleCheckAnswer}>
-              Check Answer
-            </button>
-            {result && <p className={styles.result}>{result}</p>}
+            {!hasGuessed ? (
+              <button
+                className={styles.checkButton}
+                onClick={handleCheckAnswer}
+              >
+                Check Answer
+              </button>
+            ) : (
+              <p className={styles.result}>{result}</p>
+            )}
           </div>
         )}
       </div>

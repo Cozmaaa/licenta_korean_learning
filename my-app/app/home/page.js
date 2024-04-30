@@ -165,41 +165,41 @@ const MainMenu = () => {
       <div className={styles.greeting}>
         <h1 className={styles.heading}>Hello {username || ""}!</h1>
       </div>
-      <div className={styles.menuContainer}>
-        <div className={styles.menuItem}>
+      <div className={styles.menuContainer} >
+        <div className={`${styles.menuItem} ${styles.color1}`}>
           <h2 className={styles.heading}>
             Stories
-            <button className={styles.button} onClick={()=> router.push("/stories")}>Browse Stories</button>
+            <button className={`${styles.button} ${styles.color1}`} onClick={()=> router.push("/stories")}>Browse Stories</button>
           </h2>
         </div>
-        <div className={styles.menuItem}>
+        <div className={`${styles.menuItem} ${styles.color2}`}>
           <h2 className={styles.heading}>
             Hangeul
             <button
-              className={styles.button}
+              className={`${styles.button} ${styles.color2}`}
               onClick={() => router.push("/hangeul")}
             >
               Learn Hangeul
             </button>
             <button
-              className={styles.button}
+              className={`${styles.button} ${styles.color2}`}
               onClick={redirectToLastKoreanLetter}
             >
               Continue from where you left off
             </button>
           </h2>
         </div>
-        <div className={styles.menuItem}>
+        <div className={`${styles.menuItem} ${styles.color3}`}>
           <h2 className={styles.heading}>
             Flashcards
-            <button className={styles.button} onClick={()=> router.push("/flashcards")}>Review Words</button>
+            <button className={`${styles.button} ${styles.color3}`} onClick={()=> router.push("/flashcards")}>Review Words</button>
           </h2>
         </div>
-        <div className={styles.menuItem}>
+        <div className={`${styles.menuItem} ${styles.color4}`}>
           <h2 className={styles.heading}>
             Chatting
             <button
-              className={styles.button}
+              className={`${styles.button} ${styles.color4}`}
               onClick={() => router.push("/chat")}
             >
               Train Writing

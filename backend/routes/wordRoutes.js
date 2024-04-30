@@ -1,8 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const wordController = require('../controllers/wordController');
+const wordController = require("../controllers/wordController");
 
+router.get("/getAllWords",wordController.getAllWords);
 
-router.post('/',wordController.addWord);
+router.post("/", wordController.addWord);
 
-module.exports=router;
+router.put("/updateGuesses", wordController.updateWordGuesses);
+
+module.exports = router;
