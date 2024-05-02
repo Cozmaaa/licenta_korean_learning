@@ -1,0 +1,86 @@
+/* styles/Hangeul.module.css */
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainDiv {
+  text-align: center;
+}
+
+.image {
+  max-width: 25%;
+  height: auto;
+  border-radius: 8px; /* Optional, for styled corners */
+}
+
+.description {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nextButton {
+  padding: 10px 20px;
+  margin:20px auto;
+  background-color: #4caf50; 
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nextButton:hover,
+.nextButton:focus {
+  background-color: #43a047; /* A slightly darker shade for the hover/focus state */
+  transform: translateY(-2px); /* A subtle lift effect */
+  outline: none; /* Removes the outline to keep the design clean */
+}
+
+.nextButton:active {
+  background-color: #388e3c; /* Even darker for the active state */
+  transform: translateY(1px); /* 'Pressing down' effect */
+}
+
+.loadingAnimation {
+  width: 200px;
+  height: 200px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.placeholderImage {
+  width: 200px;
+  height: 200px;
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #666;
+}

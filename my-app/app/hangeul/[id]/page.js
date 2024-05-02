@@ -1,15 +1,18 @@
 //TODO : Make it need cookies
+//FIX WEIRD ANIMATION
 
 "use client";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
-import styles from "../Hangeul.module.css";
+import styles from "../main/HangeulStart.module.css";
 import { getUserByCookie } from "@/utils/getUserByCookie";
 import next from "next";
+import Image from "next/image";
 
 export default function HangeulLetterPage({ params }) {
   const [hangeulLetter, setHangeulLetter] = useState(null);
+  const [imageExists, setImageExists] = useState(true);
   const id = params.id; // 'id' is now directly available as a prop
   const router = useRouter();
 
@@ -25,6 +28,10 @@ export default function HangeulLetterPage({ params }) {
           }
           const data = await response.json();
           setHangeulLetter(data);
+
+          // Check if the image exists
+          const imageResponse = await fetch(`/${id}Hangeul.png`);
+          setImageExists(imageResponse.ok);
         } catch (error) {
           console.error("Fetching error:", error);
         }
@@ -92,7 +99,17 @@ export default function HangeulLetterPage({ params }) {
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>{hangeulLetter?.letter}</h1>
-        <p className={styles.description}>{hangeulLetter?.meaning}</p>
+        {hangeulLetter && imageExists && (
+          <Image
+            src={`/${id}Hangeul.png`}
+            alt={`Hangeul letter ${hangeulLetter.letter}`}
+            width={200}
+            height={200}
+          />
+        )}
+        <p className={`${styles.description} ${imageExists ? "" : styles.noImage}`}>
+          {hangeulLetter?.meaning}
+        </p>
         <button onClick={goToNextLetter} className={styles.nextButton}>
           Next Letter
         </button>
@@ -100,7 +117,6 @@ export default function HangeulLetterPage({ params }) {
     </div>
   );
 }
-
 // This is where Next.js passes the dynamic route parameter `id` to your page
 export async function getServerComponent({ params }) {
   return {
