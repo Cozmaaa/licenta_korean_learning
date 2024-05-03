@@ -15,6 +15,7 @@ router.post("/setLastHangeulLetter", userController.setLastHangeulLetter);
 router.post('/getLastHangeulLetter', userController.getLastHangeulLetter);
 router.post('/addSavedWord',userController.addWordToSavedWords);
 router.post('/isAdmin',userController.checkUserType)
+router.post('/removeSavedWord',userController.removeSavedWord)
 
 
 router.get('/:userId/savedWords',userController.getSavedWords)

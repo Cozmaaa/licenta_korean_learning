@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "array-shuffle": "^3.0.0",
     "axios": "^1.6.7",
     "chart.js": "^4.4.2",
     "next": "^14.1.2",

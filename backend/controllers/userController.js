@@ -224,3 +224,23 @@ exports.checkUserType = async (req, res) => {
     res.status(500).json({ error: "An error occurred while checking user type" });
   }
 };
+
+
+exports.removeSavedWord = async (req,res) =>{
+  try{
+    const {userId, wordId} = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.savedWords.remove(wordId);
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error("Error removing saved word:", error);
+    res.status(500).json({ error: "An error occurred while removing the saved word" });
+  }
+}

@@ -3,16 +3,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Chat.module.css";
+import { useRouter } from "next/navigation";
 
 const ChatPage = () => {
   const [inputText, setInputText] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const router= useRouter();
 
-  // This effect will only run on the client after the component has mounted.
-  // Any code that relies on the window or other browser-specific APIs should go here.
-  useEffect(() => {
-    // Here you can do any client-specific initialization
-  }, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +34,12 @@ const ChatPage = () => {
 
   return (
     <div className={styles.chatWrapper}>
+      <button
+        className={styles.homeButton}
+        onClick={() => router.push("/home")}
+      >
+        Back to Home
+      </button>
       <div className={styles.chatContainer}>
         <h1 className={styles.chatHeader}>Chat with a Korean seller</h1>
         <div className={styles.chatHistory}>

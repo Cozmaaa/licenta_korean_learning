@@ -85,6 +85,18 @@
   }
   
   .nextButton {
+    background-color: #00cf34;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s;
+  }
+
+  .removeWord{
     background-color: #ff6347;
     color: #fff;
     border: none;
@@ -137,3 +149,36 @@
     background-color: #333;
     color: #fff;
   }
+
+
+
+  .parentNoWords{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .homeButtonNoWords {
+    position:inherit;
+    top: 1rem;
+    left: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  
+  .homeButtonNoWords:hover {
+    background-color: #333;
+    color: #fff;
+  }
+
+  

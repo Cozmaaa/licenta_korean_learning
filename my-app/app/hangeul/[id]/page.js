@@ -90,6 +90,12 @@ export default function HangeulLetterPage({ params }) {
 
   return (
     <div className={styles.container}>
+      <button
+        className={styles.homeButton}
+        onClick={() => router.push("/home")}
+      >
+        Back to Home
+      </button>
       <Head>
         <title>Hangeul Letter: {hangeulLetter?.letter}</title>
         <meta
@@ -107,7 +113,11 @@ export default function HangeulLetterPage({ params }) {
             height={200}
           />
         )}
-        <p className={`${styles.description} ${imageExists ? "" : styles.noImage}`}>
+        <p
+          className={`${styles.description} ${
+            imageExists ? "" : styles.noImage
+          }`}
+        >
           {hangeulLetter?.meaning}
         </p>
         <button onClick={goToNextLetter} className={styles.nextButton}>

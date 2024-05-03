@@ -74,7 +74,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border:2px solid black;
+  border: 2px solid black;
   border-radius: 25px;
 }
 
@@ -87,37 +87,70 @@
 }
 
 .menuItem.color1 {
-  background-color: #a64248; 
+  background-color: #a64248;
+  background: linear-gradient(220.55deg, #ff896d 0%, #d02020 100%);
 }
 
 .menuItem.color2 {
   background-color: #e5af59;
+  background: linear-gradient(220.55deg, #ffd439 0%, #ff7a00 150%);
 }
 
 .menuItem.color3 {
-  background-color: #7292c3; 
+  background-color: #7292c3;
+  background: linear-gradient(220.55deg, #24cfc5 0%, #001c63 200%);
 }
 
 .menuItem.color4 {
   background-color: #48a9b1;
+  background: linear-gradient(180.55deg, #48a9b1 0%, #001c63 300%);
 }
 
-.button.color1{
-  background-color: #fdbc46
-
-}
-
-.button.color2{
+.button.color1 {
   background-color: #fdbc46;
-
+  background-color: #e44d41;
+  border: 2px solid black;
 }
 
-.button.color3{
+.button.color2 {
+  background-color: #fdbc46;
+}
+
+.button.color3 {
   background-color: #2d4d90;
-
 }
 
-.button.color4{
+.button.color4 {
   background-color: #235a92;
+}
 
+.greetingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust the height as needed */
+  margin-bottom: 2rem;
+}
+
+.greetingBox {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 400px; /* Adjust the width as needed */
+  height: 150px; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at -0.8% 4.3%, rgb(59, 176, 255) 0%, rgb(76, 222, 250) 83.6%);
+  border:2px solid black;
+}
+
+.greetingText {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fdfdfe;
+  text-shadow: 0px 0px 5px #b393d3, 0px 0px 10px #b393d3, 0px 0px 10px #b393d3,
+    0px 0px 20px #b393d3;
 }

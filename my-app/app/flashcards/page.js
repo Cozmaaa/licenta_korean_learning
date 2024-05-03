@@ -5,6 +5,7 @@ import { getUserByCookie } from "@/utils/getUserByCookie";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import arrayShuffle from "array-shuffle";
 
 export default function SavedWordsQuiz() {
   const [savedWords, setSavedWords] = useState([]);
@@ -31,7 +32,9 @@ export default function SavedWordsQuiz() {
           );
         }
         const data = await response.json();
-        setSavedWords(data);
+        const shuffledData = arrayShuffle(data);
+
+        setSavedWords(shuffledData);
       } catch (error) {
         console.error("Error fetching saved words:", error);
       }
@@ -61,10 +64,10 @@ export default function SavedWordsQuiz() {
   }, []);
 
   useEffect(() => {
-    if (savedWords.length > 0) {
+    if (savedWords.length > 0 && currentWordIndex < savedWords.length) {
       const currentWord = savedWords[currentWordIndex];
       const meanings =
-        currentWord.randomMeanings.length > 0
+        currentWord.randomMeanings?.length > 0
           ? currentWord.randomMeanings
           : getRandomMeanings(2);
       setRandomMeanings(meanings);
@@ -72,7 +75,7 @@ export default function SavedWordsQuiz() {
   }, [savedWords, currentWordIndex]);
 
   useEffect(() => {
-    if (savedWords.length > 0) {
+    if (savedWords.length > 0 && currentWordIndex < savedWords.length) {
       const currentWord = savedWords[currentWordIndex];
       const randomizedOptions = [
         currentWord.translation,
@@ -146,6 +149,33 @@ export default function SavedWordsQuiz() {
     }
   };
 
+  const removeSavedWord = async() =>{
+    const currentDeletedWord = savedWords[currentWordIndex];
+    const userId = await getUserByCookie();
+    try {
+      await fetch("http://localhost:5000/user/removeSavedWord", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          wordId:currentDeletedWord._id,
+        }),
+      });
+      const updatedSavedWords = savedWords.filter((word, index) => index !== currentWordIndex);
+      setSavedWords(updatedSavedWords);
+  
+      // Reset the current word index to 0
+      setCurrentWordIndex(0);
+      setSelectedOption(null);
+      setResult(null);
+      setHasGuessed(false);
+  } catch (error) {
+    console.error("Error updating word guesses:", error);
+  }
+}
+
   const handleNextWord = () => {
     setCurrentWordIndex((prevIndex) => prevIndex + 1);
     setSelectedOption(null);
@@ -154,8 +184,28 @@ export default function SavedWordsQuiz() {
   };
 
   if (savedWords.length === 0) {
-    return <div></div>;
+    return <div className={styles.parentNoWords}>
+      <h1 className={styles.textNoWords}>No more words to be reviewed, add some!</h1>
+      <button
+        className={styles.homeButtonNoWords}
+        onClick={() => router.push("/home")}
+      >
+        Back to Home
+      </button>
+    </div>;
   }
+
+  if (currentWordIndex >= savedWords.length) {
+    return <div>
+      <button
+        className={styles.homeButton}
+        onClick={() => router.push("/home")}
+      >
+        Back to Home
+      </button>
+    </div>;
+  }
+
 
   const currentWord = savedWords[currentWordIndex];
   return (
@@ -205,6 +255,9 @@ export default function SavedWordsQuiz() {
           Next Word
         </button>
       )}
+      <button className={styles.removeWord} onClick={removeSavedWord}>
+        Remove word
+      </button>
     </div>
   );
 }

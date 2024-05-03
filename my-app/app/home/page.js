@@ -162,14 +162,23 @@ const MainMenu = () => {
         onClose={handleModalClose}
         onConfirm={handleModalConfirm}
       />
-      <div className={styles.greeting}>
-        <h1 className={styles.heading}>Hello {username || ""}!</h1>
+      <div className={styles.greetingContainer}>
+        <div className={styles.greetingBox}>
+          <h1 className={styles.greetingText}>
+            안녕하세요 {username}
+          </h1>
+        </div>
       </div>
-      <div className={styles.menuContainer} >
+      <div className={styles.menuContainer}>
         <div className={`${styles.menuItem} ${styles.color1}`}>
           <h2 className={styles.heading}>
             Stories
-            <button className={`${styles.button} ${styles.color1}`} onClick={()=> router.push("/stories")}>Browse Stories</button>
+            <button
+              className={`${styles.button} ${styles.color1}`}
+              onClick={() => router.push("/stories")}
+            >
+              Browse Stories
+            </button>
           </h2>
         </div>
         <div className={`${styles.menuItem} ${styles.color2}`}>
@@ -192,7 +201,12 @@ const MainMenu = () => {
         <div className={`${styles.menuItem} ${styles.color3}`}>
           <h2 className={styles.heading}>
             Flashcards
-            <button className={`${styles.button} ${styles.color3}`} onClick={()=> router.push("/flashcards")}>Review Words</button>
+            <button
+              className={`${styles.button} ${styles.color3}`}
+              onClick={() => router.push("/flashcards")}
+            >
+              Review Words
+            </button>
           </h2>
         </div>
         <div className={`${styles.menuItem} ${styles.color4}`}>

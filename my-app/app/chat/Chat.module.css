@@ -64,3 +64,23 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  
+  .homeButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .homeButton:hover {
+    background-color: #333;
+    color: #fff;
+  }
