@@ -12,9 +12,26 @@ import Image from "next/image";
 
 export default function HangeulLetterPage({ params }) {
   const [hangeulLetter, setHangeulLetter] = useState(null);
-  const [imageExists, setImageExists] = useState(true);
+  const [imageExists, setImageExists] = useState(false);
   const id = params.id; // 'id' is now directly available as a prop
   const router = useRouter();
+
+  useEffect(() => {
+    const checkUserType = async () => {
+      try {
+        const userId = await getUserByCookie();
+        
+        if (!userId) {
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error("Error checking user login status", error);
+        router.push("/login");
+      }
+    };
+  
+    checkUserType();
+  }, []);
 
   useEffect(() => {
     if (id) {

@@ -14,6 +14,23 @@ export default function StoryPage({ params }) {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
+    const checkUserType = async () => {
+      try {
+        const userId = await getUserByCookie();
+        
+        if (!userId) {
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error("Error checking user login status", error);
+        router.push("/login");
+      }
+    };
+  
+    checkUserType();
+  }, []);
+
+  useEffect(() => {
     if (id) {
       const fetchData = async () => {
         try {

@@ -4,13 +4,35 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Chat.module.css";
 import { useRouter } from "next/navigation";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 const ChatPage = () => {
   const [inputText, setInputText] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router= useRouter();
 
+  useEffect(() => {
+    const checkUserType = async () => {
+      try {
+        const userId = await getUserByCookie();
+        
+        if (!userId) {
+          router.push("/login");
+        }
+        setIsLoggedIn(true); 
+      } catch (error) {
+        console.error("Error checking user login status", error);
+        router.push("/login");
+      }
+    };
+  
+    checkUserType();
+  }, []);
 
+  if(!isLoggedIn){
+    return null;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

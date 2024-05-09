@@ -143,7 +143,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at -0.8% 4.3%, rgb(59, 176, 255) 0%, rgb(76, 222, 250) 83.6%);
+  background: linear-gradient(220.55deg, #565656 0%, #181818 100%);
   border:2px solid black;
 }
 

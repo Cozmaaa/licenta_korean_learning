@@ -13,6 +13,24 @@ export default function StoriesPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
+
+  useEffect(() => {
+    const checkUserType = async () => {
+      try {
+        const userId = await getUserByCookie();
+        
+        if (!userId) {
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error("Error checking user login status", error);
+        router.push("/login");
+      }
+    };
+  
+    checkUserType();
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

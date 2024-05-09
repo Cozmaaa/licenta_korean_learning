@@ -4,10 +4,28 @@ import styles from "./Hangeul.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getUserByCookie } from "@/utils/getUserByCookie";
 
 export default function Hangeul() {
   const [hangeulLetters, setHangeulLetters] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkUserType = async () => {
+      try {
+        const userId = await getUserByCookie();
+        
+        if (!userId) {
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error("Error checking user login status", error);
+        router.push("/login");
+      }
+    };
+  
+    checkUserType();
+  }, []);
 
   useEffect(() => {
     const fetchHangeulLetters = async () => {
