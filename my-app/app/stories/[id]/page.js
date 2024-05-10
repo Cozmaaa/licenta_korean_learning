@@ -122,7 +122,7 @@ export default function StoryPage({ params }) {
     <div className={styles.container}>
       <h1 className={styles.title}>{story.title}</h1>
       <div className={styles.storyBox}>
-        <p>{renderHighlightedContent()}</p>
+        <p className={styles.storyText}>{renderHighlightedContent()}</p>
       </div>
       {story.audioUrl && (
         <div className={styles.audioPlayer}>

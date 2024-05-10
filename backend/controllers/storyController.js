@@ -106,3 +106,20 @@ exports.getAllStories = async (req, res) => {
     res.status(500).json({ error: "An error on the server has occured" });
   }
 };
+
+
+exports.deleteStory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedStory = await Story.deleteOne({ _id: id });
+
+    if (deletedStory.deletedCount === 0) {
+      return res.status(404).json({ error: "Story not found" });
+    }
+
+    res.status(200).json({ message: "Story deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "An error on the server has occurred when deleting a story" });
+  }
+};

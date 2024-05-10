@@ -13,12 +13,11 @@ export default function StoriesPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
 
-
   useEffect(() => {
     const checkUserType = async () => {
       try {
         const userId = await getUserByCookie();
-        
+
         if (!userId) {
           router.push("/login");
         }
@@ -27,7 +26,7 @@ export default function StoriesPage() {
         router.push("/login");
       }
     };
-  
+
     checkUserType();
   }, []);
 
@@ -50,7 +49,7 @@ export default function StoriesPage() {
 
     const checkUserType = async () => {
       try {
-        const userId  = await getUserByCookie();
+        const userId = await getUserByCookie();
         console.log("User ID:", userId);
 
         const response = await axios.post(
@@ -86,6 +85,22 @@ export default function StoriesPage() {
     router.push("/home");
   };
 
+  const handleDeleteStory = async (storyId) => {
+    try {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this story?"
+      );
+      if (confirmed) {
+        const response = await axios.delete(
+          `http://localhost:5000/story/${storyId}`
+        );
+        setStories(stories.filter((story) => story._id !== storyId));
+      }
+    } catch (error) {
+      console.log(error);
+      // Display an error message to the user
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -116,12 +131,20 @@ export default function StoriesPage() {
 
       <div className={styles.storyGrid}>
         {filteredStories.map((story) => (
-          <Link key={story._id} href={`/stories/${story._id}`}>
-            <div className={styles.storyBox}>
+          <div key={story._id} className={styles.storyBox}>
+            <Link href={`/stories/${story._id}`}>
               <h2 className={styles.storyTitle}>{story.title}</h2>
               <p className={styles.storyLevel}>Level: {story.level}</p>
-            </div>
-          </Link>
+            </Link>
+            {isAdmin && (
+              <button
+                className={styles.deleteStoryButton}
+                onClick={() => handleDeleteStory(story._id)}
+              >
+                Delete Story
+              </button>
+            )}
+          </div>
         ))}
       </div>
 

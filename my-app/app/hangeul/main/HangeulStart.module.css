@@ -108,3 +108,22 @@
 .title{
   font-size:150px;
 }
+
+.hangeulButton {
+  position: absolute;
+  top: 4.5rem;
+  left: 1rem;
+  background-color: #fff;
+  color: #333;
+  border: 2px solid #333;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.hangeulButton:hover {
+  background-color: #333;
+  color: #fff;
+}

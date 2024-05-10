@@ -113,6 +113,12 @@ export default function HangeulLetterPage({ params }) {
       >
         Back to Home
       </button>
+      <button
+          className={styles.hangeulButton}
+          onClick={() => router.push("/hangeul")}
+        >
+          Back to Hangeul Menu
+        </button>
       <Head>
         <title>Hangeul Letter: {hangeulLetter?.letter}</title>
         <meta

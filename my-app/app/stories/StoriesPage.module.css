@@ -103,3 +103,26 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
+.deleteStoryButton {
+  background-color: #ff4d4d;
+  margin-top: 6px;
+  color: #fff; 
+  border: none; 
+  padding: 8px 12px; 
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; 
+}
+
+.deleteStoryButton:hover {
+
+  background-color: #e63636; 
+}
+
+.deleteStoryButton:focus {
+  
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.4);
+}
