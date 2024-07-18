@@ -18,7 +18,7 @@ exports.addStory = async (req, res) => {
         .json({ error: "A story with the same title already exists" });
     }
 
-    // Find or create the highlighted words in the Word model
+
     const wordPromises = highlightedWords.map(async (word) => {
       const foundWord = await Word.findOne({ word });
       if (foundWord) {
@@ -31,7 +31,7 @@ exports.addStory = async (req, res) => {
       }
     });
 
-    // Wait for all the word promises to resolve
+
     const wordIds = await Promise.all(wordPromises);
 
     // Create a new instance of the Story model

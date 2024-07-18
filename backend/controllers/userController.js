@@ -42,7 +42,7 @@ exports.loginUser = async (req, res) => {
     // Generate a unique session token using UUID
     const sessionToken = uuid.v4();
 
-    // Set an expiration date for the session (e.g., 1 year from now)
+    // Set an expiration date for the session 
     const expiresAt = new Date().getTime() + 365 * 24 * 60 * 60 * 1000; // 1 year in milliseconds
 
     // Create and store the session in MongoDB
@@ -115,14 +115,12 @@ exports.setLastHangeulLetter = async (req, res) => {
   const { userId, lastLetter } = req.body;
 
   try {
-    // Find the user by ID
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Update the lastHangeulLetter field
     user.lastHangeulLetter = lastLetter;
     await user.save();
 

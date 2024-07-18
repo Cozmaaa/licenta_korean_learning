@@ -17,7 +17,7 @@ export default function StoryPage({ params }) {
     const checkUserType = async () => {
       try {
         const userId = await getUserByCookie();
-        
+
         if (!userId) {
           router.push("/login");
         }
@@ -26,7 +26,7 @@ export default function StoryPage({ params }) {
         router.push("/login");
       }
     };
-  
+
     checkUserType();
   }, []);
 
@@ -107,11 +107,10 @@ export default function StoryPage({ params }) {
         throw new Error(`Saving word failed with status ${response.status}`);
       }
 
-      // Handle the success response, e.g., show a success message or update the UI
+      // Handle the success response
       console.log("Word saved successfully");
     } catch (error) {
       console.error("Error saving word:", error);
-      // Handle the error, e.g., show an error message to the user
     }
   };
   if (!story) {
@@ -127,7 +126,10 @@ export default function StoryPage({ params }) {
       {story.audioUrl && (
         <div className={styles.audioPlayer}>
           <audio controls>
-            <source src={"http://localhost:5000/"+story.audioUrl} type="audio/mpeg" />
+            <source
+              src={"http://localhost:5000/" + story.audioUrl}
+              type="audio/mpeg"
+            />
             Your browser does not support the audio element.
           </audio>
         </div>

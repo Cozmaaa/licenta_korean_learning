@@ -6,8 +6,8 @@ const openai = new OpenAI({
 });
 
 const storeSellerPrompt =
-  "Esti un vanzator la un magazin in coreea , tu trebuie sa vorbesti doar in coreeana " +
-  "si sa incerci sa folosesti termeni mai simpli, de asemenea nu ai voie sa foloseste 당신 niciodata"; // Your prompt
+  "You are a korean seller at a shop , you must only speak in korean " +
+  "try to use simple words, also never use 당신 "; 
 
 const handleOpenAiRequest = async (userId, text, conversations) => {
   if (!conversations[userId]) {

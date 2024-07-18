@@ -23,7 +23,6 @@ const AdminPage = () => {
         const userId = await getUserByCookie();
         console.log(userId)
   
-        // Send the user ID to the backend to check user type
         const response = await axios.post(
           "http://localhost:5000/user/isAdmin",
           {

@@ -40,7 +40,7 @@ export default function SavedWordsQuiz() {
   useEffect(() => {
     const fetchSavedWords = async () => {
       try {
-        const userId = await getUserByCookie(); // Replace with the actual user ID
+        const userId = await getUserByCookie(); 
         console.log(userId);
         const response = await fetch(
           `http://localhost:5000/user/${userId}/savedWords`
